@@ -1,5 +1,0 @@
-Trigger myTrigger on Account (Before Insert, Before Update){
-
-
-
-}
