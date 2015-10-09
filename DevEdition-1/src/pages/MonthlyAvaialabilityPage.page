@@ -1,0 +1,460 @@
+<apex:page standardController="Calendar_Month__c" extensions="MonthlyAvaiablityController" action="{!showAgain}" id="wholepageid">
+ 
+ <script type="text/javascript">
+ 
+     function callActionFunction(){
+         alert('actionfunction');
+         call();
+     }
+ 
+ </script>
+ 
+<apex:form >
+    <!--<apex:outputText > {!monthid} + {!monthname} + {!monthindex} + === + {!yearindex} + == + {!firstday} + === +  {!lastday} </apex:outputText>-->
+</apex:form>
+<br></br>
+<br></br>
+<br></br>
+<apex:form >
+
+<apex:pageBlock title="{!monthname} Month Summary">
+<apex:pageBlockSection columns="3">
+
+<apex:outputText value="Total Weekend Days : {!totalweekends}" />
+
+<!-- <apex:outputText value="Total HoliDays : {!totalholidays }" /> -->
+
+<apex:outputText value="Total Working Days : {!totalworkingdays}" />
+
+<apex:outputText value="Total Holidays : {!totalholidays }"/>
+
+<apex:outputText value="Total Resources : {!resourcecount}" />
+
+<apex:outputText value="Total Working Hours : {!totalworkinghours}"/>
+
+<apex:outputText value="Team Available Working Hours : {!totalteamavailability }"/>
+
+
+<apex:outputText value="Team Availablility Percentage : {0,number,00.00}"><apex:param value="{!totalteamavailablepercentage}"/>
+        </apex:outputText>
+
+<apex:outputPanel rendered="true">
+<apex:outputpanel rendered="{!refreshParent}">
+<script type="text/javascript" >
+alert(1);
+window.top.location = "/{!thisMonth.Id}";
+
+</script>
+
+</apex:outputpanel>
+</apex:outputPanel>
+
+</apex:pageBlockSection>
+<apex:pageBlockButtons >
+<apex:commandButton value="Refresh" action="{!refresh}"/>
+<!--
+<apex:commandButton value="Refresh1" onclick="callActionFunction();" reRender="wholepageid"/>
+&nbsp;&nbsp;&nbsp;&nbsp;<apex:image value="{!$Resource.btn1}" onclick="callActionFunction();"/>
+-->
+</apex:pageBlockButtons>
+<div>
+    <table>
+    <tr>
+    <td> {!showing}</td>
+    </tr>
+    </table>
+</div>
+<apex:actionFunction action="{!refresh}" name="call" />
+</apex:pageBlock>
+</apex:form>
+<!--
+<apex:pageBlock title="Yearly Summary Test">
+<apex:pageBlockTable value="{!lstResourceYearAggregate}" var="rsrc">
+    <apex:Column headerValue="Resource Name">
+        <apex:outputText value="{!rsrc.resourceName}">
+        </apex:outputText>
+    </apex:Column>
+    <apex:Column headerValue="Jan SickLeaves">
+        <apex:outputText value="{!rsrc.sickLeaveCountJan}">
+        </apex:outputText>
+    </apex:Column>
+    <apex:Column headerValue="Feb SickLeaves">
+        <apex:outputText value="{!rsrc.sickLeaveCountFeb}">
+        </apex:outputText>
+    </apex:Column>
+
+</apex:pageBlockTable>
+
+
+</apex:pageBlock>
+-->
+
+ 
+
+
+<!-- 
+<apex:pageBlock title="{!monthname} Leaves Patern Report">
+<apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="rsrc">
+    <apex:Column headerValue="Resource Name">
+        <apex:outputText value="{!rsrc.resourceName}">
+    </apex:outputText>
+    </apex:Column>
+    
+   
+    <apex:Column headerValue="MondayLeave Pattern" style="text-align:center;width:15%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <apex:pageBlockTable value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount}" var="r">
+    <apex:Column headerValue="AL"> 
+    <apex:outputText value="{!r}">
+        </apex:outputText>
+    </apex:Column>
+    
+    <apex:Column headerValue="UL"> 
+    <apex:outputText value="{!r}">
+        </apex:outputText>
+    </apex:Column>
+    
+    <apex:Column headerValue="SL"> 
+    3
+    </apex:Column>
+    
+    </apex:pageBlockTable>
+    </apex:Column>
+    
+    <apex:Column headerValue="Tuesday Leave Pattern" style="text-align:center;width:15%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="r">
+    <apex:Column headerValue="AL"> 
+    2
+    </apex:Column>
+    
+    <apex:Column headerValue="UL"> 
+    1
+    </apex:Column>
+    
+    <apex:Column headerValue="SL"> 
+    3
+    </apex:Column>
+    
+    </apex:pageBlockTable>
+    </apex:Column>
+    
+    <apex:Column headerValue="Wednesday Leave Pattern" style="text-align:center;width:15%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="r">
+    <apex:Column headerValue="AL"> 
+    2
+    </apex:Column>
+    
+    <apex:Column headerValue="UL"> 
+    1
+    </apex:Column>
+    
+    <apex:Column headerValue="SL"> 
+    3
+    </apex:Column>
+    
+    </apex:pageBlockTable>
+    </apex:Column>
+    
+    <apex:Column headerValue="Thursday Leave Pattern" style="text-align:center;width:15%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="r">
+    <apex:Column headerValue="AL"> 
+    2
+    </apex:Column>
+    
+    <apex:Column headerValue="UL"> 
+    1
+    </apex:Column>
+    
+    <apex:Column headerValue="SL"> 
+    3
+    </apex:Column>
+    
+    </apex:pageBlockTable>
+    </apex:Column>
+    
+    
+    <apex:Column headerValue="Friday Leave Pattern" style="text-align:center;width:15%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="r">
+    <apex:Column headerValue="AL"> 
+    2
+    </apex:Column>
+    
+    <apex:Column headerValue="UL"> 
+    1
+    </apex:Column>
+    
+    <apex:Column headerValue="SL"> 
+    3
+    </apex:Column>
+    
+    </apex:pageBlockTable>
+    </apex:Column>
+    
+    
+    
+</apex:pageBlockTable>
+</apex:pageBlock>
+
+-->
+
+<apex:pageBlock title="{!monthname} Resource Leaves Summary Report">
+<apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="rsrc">
+    <apex:Column headerValue="Resource Name">
+        <apex:outputText value="{!rsrc.resourceName}">
+    </apex:outputText>
+    </apex:Column>
+    
+    
+    <apex:Column headerValue="Total Availability %" style="text-align:center;width:10%">
+    <apex:facet name="footer"> Sum </apex:facet>
+    <div>
+        <apex:outputText value="{0,number,00.00}"><apex:param value="{!(totalworkingdays - rsrc.totalleaves)*9*100 / (totalworkingdays*9)}"/>
+        </apex:outputText>
+    </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="Approved Leaves" style="text-align:center;width:10%">
+         <apex:facet name="footer"> {!totalapprovedleaves}</apex:facet>
+    <div style="background-color:{!IF(rsrc.approvedLeaveCount> 0, '#F6CED8', 'White')}">
+        <apex:outputText value="{!rsrc.approvedLeaveCount}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="UnApproved Leaves" style="text-align:center;width:10%">
+         <apex:facet name="footer"> {!totalunapprovedleaves}</apex:facet>
+    <div style="background-color:{!IF(rsrc.unapprovedLeaveCount> 0, '#FA5882', 'White')}">
+        <apex:outputText value="{!rsrc.unapprovedLeaveCount}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="Planned Leaves" style="text-align:center;width:10%">
+     <apex:facet name="footer">{!totalplannedleaves }</apex:facet>
+    <div style="background-color:{!IF(rsrc.plannedLeaveCount> 0, '#81F79F', 'White')}">
+        <apex:outputText value="{!rsrc.plannedLeaveCount}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="Sick Leaves" footerValue="{!totalsickleaves}" style="text-align:center;width:10%">
+        <!--<apex:facet name="footer"><apex:outputText style="text-align:center;background-color:green">{!totalsickleaves}</apex:outputText></apex:facet> -->
+        <div style="background-color:{!IF(rsrc.sickLeaveCount > 0, '#F6CED8', 'White')}">
+        <apex:outputText value="{!rsrc.sickLeaveCount}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="Training Leaves" style="text-align:center;width:10%">
+         <apex:facet name="footer">{!totaltrainingleaves}</apex:facet>
+        <div style="background-color:{!IF(rsrc.trainingLeaveCount> 0, '#81F79F', 'White')}">
+        <apex:outputText value="{!rsrc.trainingLeaveCount}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+    <apex:Column headerValue="Grand Total Leaves" style="text-align:center;width:10%">
+     <apex:facet name="footer"> {!totalsickleaves}</apex:facet>
+    <div style="background-color:{!IF(rsrc.totalLeaves> 0, '#F6CED8', 'White')}">
+        <apex:outputText value="{!rsrc.totalLeaves}">
+        </apex:outputText>
+        </div>
+    </apex:Column>
+    
+</apex:pageBlockTable>
+</apex:pageBlock>
+
+<apex:pageBlock title="{!monthname}  Leaves Details">
+
+    <apex:pageBlockTable value="{!lstLeaves}" var="lv">
+    <apex:column value="{!lv.JavaForce__Resource_Name__r.Name}"/>
+    <apex:column value="{!lv.Leave_Type__c}"/>
+    <apex:column headerValue="Start Date">    
+    <apex:outputText value="{0,date,dd-MMM-yyyy}">
+    <apex:param value="{!lv.Leave_Start_Date__c}"/>
+    </apex:outputText>
+    </apex:column>
+    <apex:column headerValue="End Date">
+    <apex:outputText value="{0,date,dd-MMM-yyyy}">
+    <apex:param value="{!lv.Leave_End_Date__c}"/>
+    </apex:outputText>
+    </apex:column>
+    <apex:column value="{!lv.Absolute_Leave_Days__c}"/>    
+    
+    </apex:pageBlockTable>
+
+
+
+
+
+
+<!-- {!mapResourceIdLeaves} --> 
+
+</apex:pageBlock>
+<apex:pageBlock title="Leave Pattern Report" id="results">
+                 <table class="list">
+                           <tr class="headerRow">                 
+                           <th>Resource Name =====</th>
+                           <th colspan="3">Monday</th> 
+                           <th colspan="3">Tuesday</th> 
+                           <th colspan="3">Wednesday</th> 
+                           <th colspan="3">Thursday</th> 
+                           <th colspan="3">Friday</th> 
+                           </tr>
+                           <tr>
+                           <th >==</th> 
+                           <th >AL</th> 
+                           <th >SL</th> 
+                           <th >UL</th>                                                       
+                           <th >AL</th> 
+                           <th >SL</th> 
+                           <th >UL</th>
+                           <th >AL</th> 
+                           <th >SL</th> 
+                           <th >UL</th>
+                           <th >AL</th> 
+                           <th >SL</th> 
+                           <th >UL</th>
+                           <th >AL</th> 
+                           <th >SL</th> 
+                           <th >UL</th>
+                           </tr>  
+      <apex:pageBlockTable value="{!lstResourceLeavesAggregate}" var="rsrc">
+                      <apex:Column headerValue="Resource Name">
+                            <apex:outputText value="{!rsrc.resourceName}">
+                            </apex:outputText>                           
+                       </apex:Column>
+                       <apex:column headerValue="M" colspan="3">                             
+                           <table class="list"  >
+                           <tr class="headerRow"> 
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[0]] > 0, '#81F79F', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn1"  >   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[0]]}"></apex:outputText>                     
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[1]] > 0, '#F6CED8', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn2" >    
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[1]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[2]] > 0, '#FA5882', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn3">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[0]][lstLeaveTypesForMap[2]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                            
+                           </tr>
+                       </table>                        
+                   </apex:Column>
+                  
+                  <apex:column headerValue="M" colspan="3">                             
+                           <table class="list"  >
+                           <tr class="headerRow"> 
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[0]] > 0, '#81F79F', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn1a">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[0]]}"></apex:outputText>                     
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[1]] > 0, '#F6CED8', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn2a">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[1]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[2]] > 0, '#FA5882', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn3a">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[1]][lstLeaveTypesForMap[2]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                            
+                           </tr>
+                       </table>                        
+                   </apex:Column>
+                                    
+<apex:column headerValue="M" colspan="3">                             
+                           <table class="list"  >
+                           <tr class="headerRow"> 
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[0]] > 0, '#81F79F', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn1b">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[0]]}"></apex:outputText>                     
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[1]] > 0, '#F6CED8', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn2b">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[1]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[2]] > 0, '#FA5882', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn3b">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[2]][lstLeaveTypesForMap[2]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                            
+                           </tr>
+                       </table>                        
+                   </apex:Column>      
+                   
+                   <apex:column headerValue="M" colspan="3">                             
+                           <table class="list"  >
+                           <tr class="headerRow"> 
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[0]] > 0, '#81F79F', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn1c">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[0]]}"></apex:outputText>                     
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[1]] > 0, '#F6CED8', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn2c">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[1]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[2]] > 0, '#FA5882', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn3c">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[3]][lstLeaveTypesForMap[2]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                            
+                           </tr>
+                       </table>                        
+                   </apex:Column>                              
+                   <apex:column headerValue="M" colspan="3">                             
+                           <table class="list"  >
+                           <tr class="headerRow"> 
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[0]] > 0, '#81F79F', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn1d">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[0]]}"></apex:outputText>                     
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[1]] > 0, '#F6CED8', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn2d">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[1]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                           
+                           <td scope="col" colspan="1" width="8%" align="center" style="background-color:{!IF(rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[2]] > 0, '#FA5882', '#F2F2F2')}">
+                             <apex:outputPanel id="theBtn3d">   
+                             <apex:outputText value="{!rsrc.mapWeekDayToLeaveTypeToLeaveCount[lstWeekDaysForMap[4]][lstLeaveTypesForMap[2]]}"></apex:outputText>                                          
+                           </apex:outputPanel>                                       
+                           </td>
+                            
+                           </tr>
+                       </table>                        
+                   </apex:Column>
+                   </apex:pageBlockTable>
+                   </table>
+            <!-- </apex:repeat> -->
+        <!-- </apex:repeat> -->
+   </apex:pageBlock>
+
+</apex:page>
