@@ -25,6 +25,14 @@ public class CalendarUtils {
         
     }
 
+	/* Prasad - Added this for testing Force.com Plug-In - Starts */ 
+	
+	public void UtilMethod (){
+	
+	}
+	
+	/* Prasad - Added this for testing Force.com Plug-In - Ends */
+
     
     // this method must be called from the After Insert Trigger on Calendar Months
     public static void createCalDays(List<JavaForce__Calendar_Month__c> lstNewMonths){
